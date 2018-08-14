@@ -25,6 +25,9 @@ mv -f /etc/ambari-agent/conf/ambari-agent.ini.new /etc/ambari-agent/conf/ambari-
 # disable ssl checks
 sed -i 's/verify=platform_default/verify=disable/' /etc/python/cert-verification.cfg || echo "could not disable ssl checks"
 
+#fix bug with agent registration
+sed -i '/\[security\]/a force_https_protocol=PROTOCOL_TLSv1_2' /etc/ambari-agent/conf/ambari-agent.ini 
+
 # start ambari-agent
 ambari-agent start
 
